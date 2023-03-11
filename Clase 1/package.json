@@ -1,0 +1,27 @@
+{
+  "name": "crear-npm",
+  "version": "1.0.0",
+  "description": "Creando nuetro primer paquete",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NicolleMayol/WWC.git"
+  },
+  "keywords": [
+    "JavaScript",
+    "node"
+  ],
+  "author": "Nicolle Mayol",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NicolleMayol/WWC/issues"
+  },
+  "homepage": "https://github.com/NicolleMayol/WWC#readme",
+  "dependencies": {
+    "is-odd": "^3.0.1"
+  }
+}
