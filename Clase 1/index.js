@@ -1,2 +1,3 @@
-const isOdd = require('is-odd') //importamos el paquete
-console.log(isOdd(3))
+const fetchApi = require('./src/utils/api.js')
+fetchApi('https://rickandmortyapi.com/api/character/')
+    .then(data => console.log(data))

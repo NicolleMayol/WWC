@@ -4,7 +4,6 @@
   "description": "Creando nuetro primer paquete",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node --watch index.js"
   },
   "repository": {
@@ -22,6 +21,6 @@
   },
   "homepage": "https://github.com/NicolleMayol/WWC#readme",
   "dependencies": {
-    "is-odd": "^3.0.1"
+    "is-odd": "3.0.1"
   }
 }
