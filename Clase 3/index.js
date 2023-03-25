@@ -33,19 +33,27 @@ app.listen(PORT, ()=> {
     console.log(`Escuchando en http://localhost:${PORT}`)
 })
 
-app.get("/api/v1/products", (req, res)=>{
-    res.json(products);
+// app.get("/api/v1/products", (req, res)=>{
+//     res.json(products);
+// });
 
-});
+
+app.get("/api/v1/products", (req,res)=>{
+  console.log(req.query);
+  res.json({products})
+}
+)
 
 app.get("/api/v1/products/:productId", (req,res)=>{
-    const prodId = req.params;
-    const id = parseInt(req.params.productId);
-    const foundProduct = products.find(product => product.id === id)
-    if (foundProduct){
-      res.json({foundProduct})
-    } else {
-      res.status(404).send(`Product with id ${id} is not found`)
-    }
+  const {productId} = req.params;
+  const productIdInt = parseInt(productId);
+  const product = products.find((product) => product.id === productIdInt)
+  if (product){
+    res.json({product})
+  } else {
+    res.status(404).send(`Product with id ${id} is not found`)
+  }
 });
 
+
+//QUERY STRINGS: PAGING!
