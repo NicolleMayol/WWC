@@ -1,7 +1,19 @@
 const express = require("express");
 const PORT= 3000;
 const app = express();
+app.use(express.json()); //necesario para recibir jsons
 
+
+const errorLogger= (err, req, res, next)=>{
+  console.log(err);
+  next(err)
+}
+
+const errorHandler = (err, req, res, next)=>{
+  res.status(400).json({
+    message:err.message,
+  })
+}
 
 const products = [
     {
@@ -33,27 +45,46 @@ app.listen(PORT, ()=> {
     console.log(`Escuchando en http://localhost:${PORT}`)
 })
 
-// app.get("/api/v1/products", (req, res)=>{
-//     res.json(products);
-// });
 
-
-app.get("/api/v1/products", (req,res)=>{
+app.get("/api/v1/products", (req,res, next)=>{
   console.log(req.query);
-  res.json({products})
-}
-)
+  next();
+}, (req, res) =>{
+  res.json({products})}
+);
 
 app.get("/api/v1/products/:productId", (req,res)=>{
   const {productId} = req.params;
   const productIdInt = parseInt(productId);
   const product = products.find((product) => product.id === productIdInt)
-  if (product){
-    res.json({product})
-  } else {
-    res.status(404).send(`Product with id ${id} is not found`)
+  if (!product){
+    throw new Error("Producto no encontrado")
   }
+    res.json({product})
 });
 
 
+app.post("/api/v1/products", (req, res) =>{
+  const product = req.body; //JSON
+  products.push(product)
+  res.json(products)
+})
+
+
 //QUERY STRINGS: PAGING!
+//TAREA: IMPLEMENTAR PUT Y DELETE.
+
+app.use(errorLogger);
+app.use(errorHandler);
+
+/*
+ * 
+ * 
+ * 
+ *      EVENT LOOP
+ *      MICROTASK: Promises
+ *      MACROTASK: setTimeout(), setInterval()
+ * 
+ * 
+ */
+
