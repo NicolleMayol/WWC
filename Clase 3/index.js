@@ -74,6 +74,33 @@ app.post("/api/v1/products", (req, res) =>{
 //QUERY STRINGS: PAGING!
 //TAREA: IMPLEMENTAR PUT Y DELETE.
 
+// PUT route for updating product name by id
+app.put('/api/v1/products/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const newName = req.body.name;
+
+  const index = products.findIndex(product => product.id === id);
+  if (index !== -1) {
+    products[index].name = newName;
+    res.status(200).json({products});
+  } else {
+    res.status(404).json({ message: `Product with id ${id} not found.` });
+  }
+});
+
+
+app.delete('/api/v1/products/:id', (req, res)=> {
+  const id = parseInt(req.params.id);
+  const index = products.find(product => product.id === id);
+  if (index) {
+    products.splice(index, 1);
+    res.status(200).json({message:`Product with id ${id} has been deleted`, products})
+  } else {
+    throw new Error (`Product with id ${id} was not found`)
+  }
+});
+
+
 app.use(errorLogger);
 app.use(errorHandler);
 
