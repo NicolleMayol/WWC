@@ -120,7 +120,6 @@ app.delete('/api/v1/products/:id', (req,res)=>{
     }
     const products = JSON.parse(data)
     const index = products.find(product => product.id === id);
-    console.log(index)
     if (index) {
       products.splice(index, 1);
       fs.writeFile(filePath, JSON.stringify(products),(err)=> {
@@ -130,7 +129,7 @@ app.delete('/api/v1/products/:id', (req,res)=>{
         res.status(200).json({message:`Product ${index.name} has been deleted`, products})
       });
     } else {
-      throw new Error (`Product with id ${id} was not found`)
+      res.status(404).send(`Product with id ${id} was not found`)
     }
   })
 })
